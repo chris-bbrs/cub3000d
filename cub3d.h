@@ -37,12 +37,11 @@ typedef struct map_details
 	char	*ea;
 	int		f[3];
 	int		c[3];
-	
 	char	**tiles;
 }	t_map;
 
 t_map		*initialize_map(char *map);
 void		exit_map(t_map *to_free, char *str);
 int			rerror(char *str);
-
+void		check_map(t_map *map);
 #endif

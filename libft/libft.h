@@ -6,7 +6,7 @@
 /*   By: cboubour <cboubour@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/24 19:11:32 by cboubour          #+#    #+#             */
-/*   Updated: 2022/12/15 00:07:45 by cboubour         ###   ########.fr       */
+/*   Updated: 2022/12/18 20:59:19 by cboubour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,5 +70,6 @@ void	ft_lstiter(t_list *lst, void (*f)(void *));
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 int		ft_strcmp(const char *s1, const char *s2);
 size_t	ft_2dstrlen(char **str);
+char	*ft_strjoin_free(char **s1, char const *s2);
 
 #endif

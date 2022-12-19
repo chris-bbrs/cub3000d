@@ -6,7 +6,7 @@
 /*   By: cboubour <cboubour@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/12 22:26:19 by cboubour          #+#    #+#             */
-/*   Updated: 2022/12/15 02:46:28 by cboubour         ###   ########.fr       */
+/*   Updated: 2022/12/18 22:37:20 by cboubour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,26 @@ static void	get_dimensions(t_map *map, int fd)
 		if (line && ft_strlen(line) > map->width)
 			map->width = ft_strlen(line);
 	}
-	// if (line)
-	free(line);
+	if (line)
+		free(line);
+}
+
+static void	create_arr(char *line, t_map *map, int fd)
+{
+	int	i;
+
+	i = 0;
+	while (ft_strlen(line) < map->width)
+		line = ft_strjoin_free(&line, " ");
+	map->tiles[i] = line;
+	while (++i < map->height)
+	{
+		line = get_next_line(fd);
+		while (ft_strlen(line) < map->width)
+			line = ft_strjoin_free(&line, " ");
+		map->tiles[i] = line;
+	}
+	map->tiles[i] = NULL;
 }
 
 static void	map_array(t_map *map, char *map_name, int fd)
@@ -57,11 +75,9 @@ static void	map_array(t_map *map, char *map_name, int fd)
 		free(line);
 		line = get_next_line(fd);
 	}
-	i = 0;
-	map->tiles[i] = line;
-	while (++i < map->height)
-		map->tiles[i] = get_next_line(fd);
-	map->tiles[i] = NULL;
+	create_arr(line, map, fd);
+	if (close(fd) < 0)
+		exit_map(map, "Error in closing file\n");
 }
 
 static t_bool	check_params_exist(t_map *map)
@@ -175,5 +191,9 @@ t_map	*initialize_map(char *map_name)
 		map_array(map, map_name, fd);
 	else
 		exit_map(map, "Invalid map structure");
+	check_map(map);
 	return (map);
 }
+
+// segfualts if tiles are not the last part in the map file
+// double param C doesnt work

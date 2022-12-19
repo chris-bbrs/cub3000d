@@ -2,7 +2,7 @@ FLAGS = -Wall -Wextra -Werror
 NAME = cub3d
 GNL = Get_next_line/gnl.a
 LIBFT = libft/libft.a
-SRC = main.c parsing.c exit_funcs.c
+SRC = main.c parsing.c exit_funcs.c check_map.c
 
 OBJ = 	$(SRC:.c=.o)
 

@@ -6,7 +6,7 @@
 /*   By: cboubour <cboubour@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/12 22:16:27 by cboubour          #+#    #+#             */
-/*   Updated: 2022/12/15 02:45:45 by cboubour         ###   ########.fr       */
+/*   Updated: 2022/12/18 21:37:09 by cboubour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ int	main(int argc, char *argv[])
 {
 	t_map	*map;
 	int		i = 0;
+	int		j;
 
 	if (argc == 2)
 	{
@@ -28,7 +29,13 @@ int	main(int argc, char *argv[])
 		printf("C %d,%d,%d\n", map->c[0], map->c[1], map->c[2]);
 		while (map->tiles[i])
 		{
-			printf("%s\n", map->tiles[i]);
+			j = 0;
+			while (map->tiles[i][j])
+			{
+				printf("%c", map->tiles[i][j]);
+				j++;
+			}
+			printf("\n");
 			i++;
 		}
 	}
