@@ -6,7 +6,7 @@
 /*   By: cboubour <cboubour@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/12 22:26:19 by cboubour          #+#    #+#             */
-/*   Updated: 2022/12/18 22:37:20 by cboubour         ###   ########.fr       */
+/*   Updated: 2022/12/21 19:35:03 by cboubour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,9 @@ static void	get_dimensions(t_map *map, int fd)
 {
 	char	*line;
 
-	map->height = 0;
+	map->height = 1;
 	line = get_next_line(fd);
-	while (line && line[0] == '\n')
-	{
-		free(line);
-		line = get_next_line(fd);
-	}
 	map->width = ft_strlen(line);
-	map->first_map_row = ft_strdup(line);
 	while (line)
 	{
 		map->height++;
@@ -167,33 +161,40 @@ t_map	*initialize_map(char *map_name)
 	if (fd < 0 || ft_strcmp(map_name + ft_strlen(map_name) - 4, ".cub"))
 		rerror("Error\nIncorrect map\n");
 	line = get_next_line(fd);
-	while (line && !check_params_exist(map))
+	while (line)
 	{
 		split = ft_split(line, ' ');
 		if (split[0][0] == 'N' && split[0][1] == 'O')
 			check_dublicate(map, &map->no, split);
-		if (split[0][0] == 'S' && split[0][1] == 'O')
+		else if (split[0][0] == 'S' && split[0][1] == 'O')
 			check_dublicate(map, &map->so, split);
-		if (split[0][0] == 'W' && split[0][1] == 'E')
+		else if (split[0][0] == 'W' && split[0][1] == 'E')
 			check_dublicate(map, &map->we, split);
-		if (split[0][0] == 'E' && split[0][1] == 'A')
+		else if (split[0][0] == 'E' && split[0][1] == 'A')
 			check_dublicate(map, &map->ea, split);
-		if (split[0][0] == 'F')
+		else if (split[0][0] == 'F')
 			init_fc(map, split, map->f);
-		if (split[0][0] == 'C')
+		else if (split[0][0] == 'C')
 			init_fc(map, split, map->c);
+		else if (line[0] != '\n')
+		{
+			free(split);
+			break ;
+		}
 		free(line);
 		free(split);
 		line = get_next_line(fd);
 	}
-	free(line);
 	if (check_params_exist(map))
+	{
+		map->first_map_row = line;
 		map_array(map, map_name, fd);
+	}
 	else
+	{
+		free(line);
 		exit_map(map, "Invalid map structure");
+	}
 	check_map(map);
 	return (map);
 }
-
-// segfualts if tiles are not the last part in the map file
-// double param C doesnt work
