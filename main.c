@@ -21,7 +21,7 @@ int	main(int argc, char *argv[])
 		cub = (t_cub *)malloc(sizeof(t_cub));
 		cub->map = initialize_map(argv[1]);
 		cub->mlx = mlx_init(SCREEN_WIDTH, SCREEN_HEIGHT, "cub3000d", true);
-		if (!mlx)
+		if (!(cub->mlx))
 			exit(EXIT_FAILURE);
 		mlx_loop(cub->mlx);
 		mlx_terminate(cub->mlx);
