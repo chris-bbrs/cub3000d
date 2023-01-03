@@ -21,4 +21,7 @@ fclean:
 	make clean
 	rm -f $(NAME)
 
+valgrind: re
+	valgrind --quiet --tool=memcheck --leak-check=full --show-leak-kinds=all --track-fds=yes ./minishell
+
 re: fclean all
