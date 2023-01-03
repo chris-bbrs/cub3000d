@@ -16,9 +16,22 @@
 # include "MLX42/include/MLX42/MLX42.h"
 # include "Get_next_line/get_next_line.h"
 # include "./libft/libft.h"
-# include <fcntl.h>
 # include <memory.h>
+# include <math.h>
 # include <stdio.h>
+# include <fcntl.h>
+# include <errno.h>
+# include <limits.h>
+# include <unistd.h>
+# include <stdlib.h>
+# include <string.h>
+
+# define SCREEN_WIDTH 640
+# define SCREEN_HEIGHT 480
+
+#define FOV 60.0 // Field of view in degrees
+#define NUM_RAYS 360 // Number of rays to cast
+#define RAY_ANGLE FOV / NUM_RAYS // Angle between each ray
 
 typedef enum e_bool
 {
@@ -39,6 +52,12 @@ typedef struct map_details
 	int		c[3];
 	char	**tiles;
 }	t_map;
+
+typedef struct game_structs
+{
+	t_map	*map;
+	mlx_t	*mlx;
+}	t_cub;
 
 t_map		*initialize_map(char *map);
 void		exit_map(t_map *to_free, char *str);
