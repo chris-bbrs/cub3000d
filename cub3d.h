@@ -26,8 +26,8 @@
 # include <stdlib.h>
 # include <string.h>
 
-# define SCREEN_WIDTH 640
-# define SCREEN_HEIGHT 480
+# define S_WIDTH 640
+# define S_HEIGHT 480
 
 #define FOV 60.0 // Field of view in degrees
 #define NUM_RAYS 360 // Number of rays to cast
@@ -39,7 +39,7 @@ typedef enum e_bool
 	False = 0
 }	t_bool;
 
-typedef struct map_details
+typedef struct s_map_details
 {
 	size_t	width;
 	size_t	height;
@@ -53,14 +53,26 @@ typedef struct map_details
 	char	**tiles;
 }	t_map;
 
-typedef struct game_structs
+typedef struct s_images{
+	mlx_image_t	*no;
+	mlx_image_t	*so;
+	mlx_image_t	*we;
+	mlx_image_t	*ea;
+	mlx_image_t	*floor;
+	mlx_image_t	*ceil;
+}	t_img;
+
+typedef struct s_game_structs
 {
-	t_map	*map;
-	mlx_t	*mlx;
+	t_map		*map;
+	mlx_t		*mlx;
+	t_img		*img;
 }	t_cub;
 
 t_map		*initialize_map(char *map);
 void		exit_map(t_map *to_free, char *str);
 int			rerror(char *str);
 void		check_map(t_map *map);
+void		initialize(t_cub *cub);
+
 #endif
