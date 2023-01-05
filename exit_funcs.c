@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit_funcs.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cboubour <cboubour@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 22:58:50 by cboubour          #+#    #+#             */
-/*   Updated: 2022/12/15 00:13:15 by cboubour         ###   ########.fr       */
+/*   Updated: 2023/01/04 15:54:23 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,3 +34,12 @@ int	rerror(char *str)
 	printf("%s", str);
 	exit(EXIT_FAILURE);
 }
+
+// void	exit_game_success(t_game *game)
+// {
+// 	mlx_close_window(game->window.mlx);
+// 	mlx_delete_image(game->window.mlx, game->window.image);
+// 	mlx_terminate(game->window.mlx);
+// 	free_strings(&game->map, game->height);
+// 	exit(EXIT_SUCCESS);
+// }

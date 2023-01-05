@@ -21,9 +21,13 @@ int	main(int argc, char *argv[])
 		cub.map = initialize_map(argv[1]);
 		cub.mlx = mlx_init(S_WIDTH, S_HEIGHT, "cub3000d", true);
 		if (!(cub.mlx))
-			exit(EXIT_FAILURE);
-		initialize(&cub);
+			exit(ENOMEM);
+    initialize(&cub);
+		init_data(&cub);
+		mlx_key_hook(cub.mlx, &my_keyhook, &cub);
 		mlx_loop(cub.mlx);
+		mlx_close_window(cub.mlx);
+		// mlx_delete_image(cub.mlx, game->window.image);
 		mlx_terminate(cub.mlx);
 	}
 	else

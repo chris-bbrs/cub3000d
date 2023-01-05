@@ -29,9 +29,12 @@
 # define S_WIDTH 640
 # define S_HEIGHT 480
 
-#define FOV 60.0 // Field of view in degrees
-#define NUM_RAYS 360 // Number of rays to cast
-#define RAY_ANGLE FOV / NUM_RAYS // Angle between each ray
+# define PLANE 1.66
+# define MOV 0.055
+# define ROT 0.055
+# define FOV 60.0 // Field of view in degrees
+# define NUM_RAYS 360 // Number of rays to cast
+# define RAY_ANGLE FOV / NUM_RAYS // Angle between each ray
 
 typedef enum e_bool
 {
@@ -53,6 +56,25 @@ typedef struct s_map_details
 	char	**tiles;
 }	t_map;
 
+typedef struct s_player{
+	float	pos_x;
+	float	pos_y;
+	float	dir_x;
+	float	dir_y;
+	float	player_x;
+	float	player_y;
+	float	plane_x;
+	float	plane_y;
+	float	angle;
+	float	fov;
+	int		ver_dir;
+	int		hor_dir;
+	float	movespeed;
+	int		turndir;
+	float	turnspeed;
+	float	dist_proj_plane;
+}	t_player;
+
 typedef struct s_images{
 	mlx_image_t	*no;
 	mlx_image_t	*so;
@@ -64,10 +86,15 @@ typedef struct s_images{
 
 typedef struct s_game_structs
 {
-	t_map		*map;
-	mlx_t		*mlx;
-	t_img		*img;
+	t_map		  *map;
+	mlx_t		  *mlx;
+  t_player	*player;
+	t_img		  *img;
 }	t_cub;
+
+void	my_keyhook(mlx_key_data_t keydata, void *param);
+void	set_player(t_cub *cub);
+void	init_data(t_cub *cub);
 
 t_map		*initialize_map(char *map);
 void		exit_map(t_map *to_free, char *str);
