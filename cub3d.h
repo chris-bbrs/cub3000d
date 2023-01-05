@@ -42,7 +42,7 @@ typedef enum e_bool
 	False = 0
 }	t_bool;
 
-typedef struct map_details
+typedef struct s_map_details
 {
 	size_t	width;
 	size_t	height;
@@ -75,20 +75,31 @@ typedef struct s_player{
 	float	dist_proj_plane;
 }	t_player;
 
-typedef struct game_structs
+typedef struct s_images{
+	mlx_image_t	*no;
+	mlx_image_t	*so;
+	mlx_image_t	*we;
+	mlx_image_t	*ea;
+	mlx_image_t	*floor;
+	mlx_image_t	*ceil;
+}	t_img;
+
+typedef struct s_game_structs
 {
-	t_map		*map;
-	mlx_t		*mlx;
-	t_player	*player;
+	t_map		  *map;
+	mlx_t		  *mlx;
+  t_player	*player;
+	t_img		  *img;
 }	t_cub;
 
 void	my_keyhook(mlx_key_data_t keydata, void *param);
 void	set_player(t_cub *cub);
 void	init_data(t_cub *cub);
 
+t_map		*initialize_map(char *map);
+void		exit_map(t_map *to_free, char *str);
+int			rerror(char *str);
+void		check_map(t_map *map);
+void		initialize(t_cub *cub);
 
-t_map	*initialize_map(char *map);
-void	exit_map(t_map *to_free, char *str);
-int		rerror(char *str);
-void	check_map(t_map *map);
 #endif

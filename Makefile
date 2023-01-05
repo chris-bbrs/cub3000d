@@ -14,12 +14,14 @@ FLAGS = -Wall -Wextra -Werror
 NAME = 	cub3d
 GNL = 	Get_next_line/gnl.a
 LIBFT = libft/libft.a
+
 SRC = 	main.c \
 		parsing.c \
 		exit_funcs.c \
 		check_map.c \
 		player.c \
 		key_hooks.c \
+    init.c \
 		init_data.c
 
 OBJ = 	$(SRC:.c=.o)
