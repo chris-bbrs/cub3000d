@@ -3,14 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cboubour <cboubour@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 15:48:41 by cboubour          #+#    #+#             */
-/*   Updated: 2023/01/04 19:33:49 by cboubour         ###   ########.fr       */
+/*   Updated: 2023/01/05 15:51:44 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+void	init_structs(t_cub *cub)
+{
+	cub->player = malloc(sizeof(t_player));
+	if (cub->player == NULL)
+		exit(ENOMEM);
+}
 
 static void	create_floor_ceil(t_cub *cub)
 {
@@ -66,5 +73,7 @@ static void	init_images(t_cub *cub)
 void	initialize(t_cub *cub)
 {
 	cub->img = ft_calloc(1, sizeof(t_img));
+	init_structs(cub);
+	// set_player(cub);
 	init_images(cub);
 }

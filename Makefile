@@ -21,8 +21,7 @@ SRC = 	main.c \
 		check_map.c \
 		player.c \
 		key_hooks.c \
-    init.c \
-		init_data.c
+		init.c \
 
 OBJ = 	$(SRC:.c=.o)
 

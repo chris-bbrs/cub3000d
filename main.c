@@ -22,8 +22,7 @@ int	main(int argc, char *argv[])
 		cub.mlx = mlx_init(S_WIDTH, S_HEIGHT, "cub3000d", true);
 		if (!(cub.mlx))
 			exit(ENOMEM);
-    initialize(&cub);
-		init_data(&cub);
+		initialize(&cub);
 		mlx_key_hook(cub.mlx, &my_keyhook, &cub);
 		mlx_loop(cub.mlx);
 		mlx_close_window(cub.mlx);
