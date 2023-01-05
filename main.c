@@ -14,17 +14,17 @@
 
 int	main(int argc, char *argv[])
 {
-	t_cub		*cub;
+	t_cub	cub;
 
 	if (argc == 2)
 	{
-		cub = (t_cub *)malloc(sizeof(t_cub));
-		cub->map = initialize_map(argv[1]);
-		cub->mlx = mlx_init(SCREEN_WIDTH, SCREEN_HEIGHT, "cub3000d", true);
-		if (!(cub->mlx))
+		cub.map = initialize_map(argv[1]);
+		cub.mlx = mlx_init(S_WIDTH, S_HEIGHT, "cub3000d", true);
+		if (!(cub.mlx))
 			exit(EXIT_FAILURE);
-		mlx_loop(cub->mlx);
-		mlx_terminate(cub->mlx);
+		initialize(&cub);
+		mlx_loop(cub.mlx);
+		mlx_terminate(cub.mlx);
 	}
 	else
 		printf("Error\nWrong number of arguments.\n");
