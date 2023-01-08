@@ -28,10 +28,9 @@
 
 # define S_WIDTH 640
 # define S_HEIGHT 480
-
 # define PLANE 1.66
-# define MOV 0.055
-# define ROT 0.055
+# define MOV 0.1
+# define ROT 0.1
 # define FOV 60.0 // Field of view in degrees
 # define NUM_RAYS 360 // Number of rays to cast
 # define RAY_ANGLE FOV / NUM_RAYS // Angle between each ray

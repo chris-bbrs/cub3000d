@@ -6,7 +6,7 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 15:48:24 by gjupy             #+#    #+#             */
-/*   Updated: 2023/01/08 19:08:35 by gjupy            ###   ########.fr       */
+/*   Updated: 2023/01/08 22:02:18 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,15 +75,34 @@ void	my_keyhook(mlx_key_data_t keydata, void *param)
 	cub = (t_cub *) param;
 	draw_black(cub);
 	raycast(cub);
-	// rotation
 	if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_PRESS)
 		exit(EXIT_SUCCESS); // change to game_exit_succes
-	if (keydata.key == MLX_KEY_W && keydata.action == MLX_REPEAT)
+	if ((keydata.key == MLX_KEY_W || keydata.key == MLX_KEY_UP) && keydata.action == MLX_REPEAT)
 		move_up(cub->player, cub->map);
-	if (keydata.key == MLX_KEY_S && keydata.action == MLX_REPEAT)
+	if ((keydata.key == MLX_KEY_S || keydata.key == MLX_KEY_DOWN) && keydata.action == MLX_REPEAT)
 		move_down(cub->player, cub->map);
 	if (keydata.key == MLX_KEY_A && keydata.action == MLX_REPEAT)
 		move_left(cub->player, cub->map);
 	if (keydata.key == MLX_KEY_D && keydata.action == MLX_REPEAT)
 		move_right(cub->player, cub->map);
+	if (keydata.key == MLX_KEY_RIGHT && keydata.action == MLX_REPEAT)
+	{
+		//both camera direction and camera plane must be rotated
+      float oldDirX = cub->player->dir_x;
+      cub->player->dir_x = cub->player->dir_x * cos(-ROT) - cub->player->dir_y * sin(-ROT);
+      cub->player->dir_y = oldDirX * sin(-ROT) + cub->player->dir_y * cos(-ROT);
+      double oldPlaneX = cub->player->plane_x;
+      cub->player->plane_x = cub->player->plane_x * cos(-ROT) - cub->player->plane_y * sin(-ROT);
+      cub->player->plane_y = oldPlaneX * sin(-ROT) + cub->player->plane_y * cos(-ROT);
+	}
+	if (keydata.key == MLX_KEY_LEFT && keydata.action == MLX_REPEAT)
+	{
+	//both camera direction and camera plane must be rotated
+      double oldDirX = cub->player->dir_x;
+      cub->player->dir_x = cub->player->dir_x * cos(ROT) - cub->player->dir_y * sin(ROT);
+      cub->player->dir_y = oldDirX * sin(ROT) + cub->player->dir_y * cos(ROT);
+      double oldPlaneX = cub->player->plane_x;
+      cub->player->plane_x = cub->player->plane_x * cos(ROT) - cub->player->plane_y * sin(ROT);
+      cub->player->plane_y = oldPlaneX * sin(ROT) + cub->player->plane_y * cos(ROT);
+	}
 }
