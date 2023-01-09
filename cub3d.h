@@ -26,11 +26,11 @@
 # include <stdlib.h>
 # include <string.h>
 
-# define S_WIDTH 640
-# define S_HEIGHT 480
+# define S_WIDTH 1600
+# define S_HEIGHT 920
 # define PLANE 1.66
-# define MOV 0.07
-# define ROT 0.07
+# define MOV 0.06
+# define ROT 0.06
 # define FOV 60.0 // Field of view in degrees
 # define NUM_RAYS 360 // Number of rays to cast
 # define RAY_ANGLE FOV / NUM_RAYS // Angle between each ray
@@ -80,6 +80,7 @@ typedef struct s_images{
 	mlx_texture_t	*we;
 	mlx_texture_t	*ea;
 	mlx_image_t		*b_img;
+	mlx_image_t		*player;
 }	t_img;
 
 typedef struct s_ray{

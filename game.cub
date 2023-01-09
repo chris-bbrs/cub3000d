@@ -3,8 +3,8 @@ SO ./textures/path_to_the_south_texture/wall_text.png
 WE ./textures/path_to_the_west_texture/wall_text.png
 EA ./textures/path_to_the_east_texture/wall_text.png
 
-C 85,152,247
-F 68,92,45
+C 52,154,255
+F 56,87,35
 
         1111111111111111111111111
         1000000000110000000000001

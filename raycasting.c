@@ -6,7 +6,7 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 17:02:50 by gjupy             #+#    #+#             */
-/*   Updated: 2023/01/09 15:32:28 by gjupy            ###   ########.fr       */
+/*   Updated: 2023/01/09 22:28:51 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -184,8 +184,8 @@ void	raycast(t_cub *cub)
 			cub->ray->step_y = 1;
 			cub->ray->sideDist_y = (cub->ray->pos_y + 1.0 - cub->player->pos_y) * cub->ray->deltaDist_y;
 		}
-		// cub->ray->pos_x = (int) cub->player->pos_x;
-		// cub->ray->pos_y = (int) cub->player->pos_y;
+		cub->ray->pos_x = (int) cub->player->pos_x;
+		cub->ray->pos_y = (int) cub->player->pos_y;
 		dda(cub);
 		//Calculate distance projected on camera direction (Euclidean distance would give fisheye effect!)
 		if (cub->ray->side <= 1)

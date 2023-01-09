@@ -23,11 +23,13 @@ int	main(int argc, char *argv[])
 		if (!(cub.mlx))
 			exit(ENOMEM);
 		initialize(&cub);
+		system("afplay textures/ketamine_dreams.mp3 &");
 		mlx_loop_hook(cub.mlx, &my_keyhook, &cub);
 		mlx_loop(cub.mlx);
 		mlx_close_window(cub.mlx);
 		mlx_delete_image(cub.mlx, cub.img->b_img);
 		mlx_terminate(cub.mlx);
+		system("pkill afplay");
 	}
 	else
 		printf("Error\nWrong number of arguments.\n");

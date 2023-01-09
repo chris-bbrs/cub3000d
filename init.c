@@ -6,7 +6,7 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 15:48:41 by cboubour          #+#    #+#             */
-/*   Updated: 2023/01/09 14:44:07 by gjupy            ###   ########.fr       */
+/*   Updated: 2023/01/09 22:39:37 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,14 +52,20 @@ static void	create_floor_ceil(t_cub *cub)
 
 static void	init_images(t_cub *cub)
 {
+	mlx_texture_t	*temp;
+
 	cub->tex->tex = malloc(sizeof(mlx_texture_t *) * 4);
 	cub->tex->tex[0] = mlx_load_png(cub->map->no);
 	cub->tex->tex[1] = mlx_load_png(cub->map->so);
 	cub->tex->tex[2] = mlx_load_png(cub->map->we);
 	cub->tex->tex[3] = mlx_load_png(cub->map->ea);
+	temp = mlx_load_png("./textures/player.png");
+	cub->img->player = mlx_texture_to_image(cub->mlx, temp);
+	free(temp);
 	create_floor_ceil(cub);
 	if (mlx_image_to_window(cub->mlx, cub->img->b_img, 0, 0) == -1)
 		rerror("put_background failed");
+	mlx_image_to_window(cub->mlx, cub->img->player, (S_WIDTH - cub->img->player->width) / 2, S_HEIGHT- cub->img->player->height);
 	mlx_set_setting(MLX_STRETCH_IMAGE, 1);
 }
 

@@ -6,7 +6,7 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 15:48:24 by gjupy             #+#    #+#             */
-/*   Updated: 2023/01/08 22:52:46 by gjupy            ###   ########.fr       */
+/*   Updated: 2023/01/09 23:01:27 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,12 @@ void	my_keyhook(void *param)
 
 	cub = (t_cub *) param;
 	if (mlx_is_key_down(cub->mlx, MLX_KEY_ESCAPE))
+	{
+		mlx_delete_image(cub->mlx, cub->img->b_img);
+		mlx_terminate(cub->mlx);
+		system("pkill afplay");
 		exit(EXIT_SUCCESS); // change to game_exit_succes
+	}
 	if ((mlx_is_key_down(cub->mlx, MLX_KEY_W) || mlx_is_key_down(cub->mlx, MLX_KEY_UP)))
 		move_up(cub->player, cub->map);
 	if ((mlx_is_key_down(cub->mlx, MLX_KEY_S) || mlx_is_key_down(cub->mlx, MLX_KEY_DOWN)))
