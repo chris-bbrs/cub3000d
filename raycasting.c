@@ -6,7 +6,7 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 17:02:50 by gjupy             #+#    #+#             */
-/*   Updated: 2023/01/08 22:16:29 by gjupy            ###   ########.fr       */
+/*   Updated: 2023/01/09 15:32:28 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,33 +42,57 @@ void	dda(t_cub *cub)
 	}
 }
 
+static double	find_wall_x(t_cub *cub, t_ray *ray)
+{
+	double	wall_x;
+
+	if (ray->side <= 1)
+		wall_x = cub->player->pos_y + ray->wallDist * ray->dir_y;
+	else
+		wall_x = cub->player->pos_x + ray->wallDist * ray->dir_x;
+	wall_x -= floor(wall_x);
+	return (wall_x);
+}
+
+static int	find_texture_x(t_cub *cub, mlx_texture_t *texture, t_ray *ray)
+{
+	int	tex_x;
+
+	tex_x = (int)(find_wall_x(cub, ray) * (double) texture->width);
+	if ((ray->side == 0 && ray->dir_x > 0)
+		|| (ray->side == 1 && ray->dir_y < 0))
+		tex_x = texture->width - tex_x - 1;
+	return (tex_x);
+}
+
 void	draw_vertical_line(t_cub *cub, int raycount)
 {
-	int	i;
-	uint32_t	c_colour;
+	int		i;
+	int		sd;
+	double	step;
+	double	texture_pos;
 
-	c_colour = (0 << 24) | (0 << 16);
-	c_colour = c_colour | (0  << 8) | 255;
-	if (cub->ray->side == 2)
-	{
-		c_colour = (123 << 24) | (142 << 16);
-		c_colour = c_colour | (223 << 8) | 255;
-	}
-	if (cub->ray->side == 1)
-	{
-		c_colour = (220 << 24) | (210 << 16);
-		c_colour = c_colour | (150 << 8) | 255;
-	}
+	sd = cub->ray->side;
+	cub->tex->tex_x = find_texture_x(cub, cub->tex->tex[sd], cub->ray);
+	step = (1.0 * cub->tex->tex[sd]->height) / (cub->draw_wall->drawEnd - cub->draw_wall->drawStart);
+	texture_pos = (cub->draw_wall->drawStart - S_HEIGHT / 2 + (cub->draw_wall->drawEnd - cub->draw_wall->drawStart)
+			/ 2) * step;
 	i = cub->draw_wall->drawStart;
 	while (i <= cub->draw_wall->drawEnd)
 	{
-		// dprintf(2, "i: %d | raycount: %d | draw start: %d | draw end: %d\n", i, raycount, cub->draw_wall->drawStart, cub->draw_wall->drawEnd);
-		mlx_put_pixel(cub->img->b_img, raycount, i, c_colour);
+		cub->tex->tex_y = (int)(texture_pos) & (cub->tex->tex[sd]->height - 1);
+		texture_pos += step;
+		if (cub->draw_wall->drawStart >= 0 && cub->draw_wall->drawStart <= S_HEIGHT)
+		{
+			ft_memcpy(&cub->img->b_img->pixels[(i * cub->img->b_img->width + raycount) * 4],
+			&cub->tex->tex[sd]->pixels[(cub->tex->tex_y
+							* cub->tex->tex[sd]->height + cub->tex->tex_x) * 4], 4);
+		}
 		i++;
 	}
 }
 
-void	draw_black(t_cub *cub)
+void	draw_bg(t_cub *cub, int raycount)
 {
 	uint32_t	i;
 	uint32_t	j;
@@ -86,15 +110,10 @@ void	draw_black(t_cub *cub)
 	i = 0;
 	while (i < S_HEIGHT)
 	{
-		j = 0;
-		while (j < S_WIDTH)
-		{
-			if (i > S_HEIGHT / 2)
-				mlx_put_pixel(cub->img->b_img, j, i, f_colour);
-			else
-				mlx_put_pixel(cub->img->b_img, j, i, c_colour);
-			j++;
-		}
+		if (i < cub->draw_wall->drawStart)
+			mlx_put_pixel(cub->img->b_img, raycount, i, c_colour);
+		else if (i > cub->draw_wall->drawEnd)
+			mlx_put_pixel(cub->img->b_img, raycount, i, f_colour);
 		i++;
 	}
 }
@@ -183,6 +202,7 @@ void	raycast(t_cub *cub)
 			if (cub->draw_wall->drawEnd >= S_HEIGHT)
 				cub->draw_wall->drawEnd = S_HEIGHT - 1;
 		draw_vertical_line(cub, raycount);
+		draw_bg(cub, raycount);
 		raycount++;
 	}
 }

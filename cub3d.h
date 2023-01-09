@@ -29,8 +29,8 @@
 # define S_WIDTH 640
 # define S_HEIGHT 480
 # define PLANE 1.66
-# define MOV 0.1
-# define ROT 0.1
+# define MOV 0.07
+# define ROT 0.07
 # define FOV 60.0 // Field of view in degrees
 # define NUM_RAYS 360 // Number of rays to cast
 # define RAY_ANGLE FOV / NUM_RAYS // Angle between each ray
@@ -75,11 +75,11 @@ typedef struct s_player{
 }	t_player;
 
 typedef struct s_images{
-	mlx_image_t	*no;
-	mlx_image_t	*so;
-	mlx_image_t	*we;
-	mlx_image_t	*ea;
-	mlx_image_t	*b_img;
+	mlx_texture_t	*no;
+	mlx_texture_t	*so;
+	mlx_texture_t	*we;
+	mlx_texture_t	*ea;
+	mlx_image_t		*b_img;
 }	t_img;
 
 typedef struct s_ray{
@@ -107,8 +107,9 @@ typedef struct s_draw_wall
 
 typedef struct s_texture
 {
-	int			tex_x;
-	int			tex_y;
+	mlx_texture_t	**tex;
+	int				tex_x;
+	int				tex_y;
 }	t_tex;
 
 typedef struct s_game_structs
@@ -122,10 +123,10 @@ typedef struct s_game_structs
 	t_tex		*tex;
 }	t_cub;
 
-void	my_keyhook(mlx_key_data_t keydata, void *param);
+void	my_keyhook(void *param);
 void	set_player(t_cub *cub);
 void	raycast(t_cub *cub);
-void	draw_black(t_cub *cub);
+void	draw_bg(t_cub *cub, int raycount);
 
 t_map		*initialize_map(char *map);
 void		exit_map(t_map *to_free, char *str);

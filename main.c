@@ -23,10 +23,10 @@ int	main(int argc, char *argv[])
 		if (!(cub.mlx))
 			exit(ENOMEM);
 		initialize(&cub);
-		mlx_key_hook(cub.mlx, &my_keyhook, &cub);
+		mlx_loop_hook(cub.mlx, &my_keyhook, &cub);
 		mlx_loop(cub.mlx);
 		mlx_close_window(cub.mlx);
-		// mlx_delete_image(cub.mlx, game->window.image);
+		mlx_delete_image(cub.mlx, cub.img->b_img);
 		mlx_terminate(cub.mlx);
 	}
 	else
