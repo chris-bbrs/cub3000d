@@ -25,6 +25,8 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <string.h>
+# include <sys/time.h>
+# include <signal.h>
 
 # define S_WIDTH 1600
 # define S_HEIGHT 920
@@ -122,7 +124,14 @@ typedef struct s_game_structs
 	t_ray		*ray;
 	t_draw_wall	*draw_wall;
 	t_tex		*tex;
+	time_t		start_time;
+	pid_t		pid[2];
 }	t_cub;
+
+void	exit_game_success(t_cub *cub);
+
+time_t	get_time(void);
+pid_t	get_pid(char *s);
 
 void	my_keyhook(void *param);
 void	set_player(t_cub *cub);
