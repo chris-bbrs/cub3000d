@@ -31,7 +31,6 @@
 # define S_WIDTH 1600
 # define S_HEIGHT 920
 # define PLANE 1.66
-# define MOV 0.06
 # define ROT 0.06
 # define FOV 60.0 // Field of view in degrees
 # define NUM_RAYS 360 // Number of rays to cast
@@ -58,6 +57,7 @@ typedef struct s_map_details
 }	t_map;
 
 typedef struct s_player{
+	bool	is_running;
 	float	pos_x;
 	float	pos_y;
 	float	dir_x;
@@ -125,7 +125,7 @@ typedef struct s_game_structs
 	t_draw_wall	*draw_wall;
 	t_tex		*tex;
 	time_t		start_time;
-	pid_t		pid[2];
+	pid_t		pid[3];
 }	t_cub;
 
 void	exit_game_success(t_cub *cub);

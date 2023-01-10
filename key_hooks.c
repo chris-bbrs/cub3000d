@@ -6,7 +6,7 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 15:48:24 by gjupy             #+#    #+#             */
-/*   Updated: 2023/01/10 20:41:40 by gjupy            ###   ########.fr       */
+/*   Updated: 2023/01/10 22:09:29 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,18 +43,36 @@ pid_t	get_pid(char *s)
 	return (pid);
 }
 
+void	play_walk_sound(t_player *player, pid_t *pid, bool run)
+{
+	if (run && player->is_running)
+	{
+		if (pid[1])
+			kill(pid[1], SIGKILL);
+		if (!pid[2])
+			system("afplay ./textures/horse_fast.mp3 &");
+		pid[2] = get_pid("./textures/horse_fast.mp3");
+	}
+	else
+	{
+		if (!pid[1])
+			system("afplay ./textures/horse_slow.mp3 &");
+		pid[1] = get_pid("./textures/horse_slow.mp3");
+	}
+}
+
 void	move_right(t_player *player, t_map *map, pid_t *pid)
 {
 	float	x;
 	float	y;
 
-	x = player->pos_x + player->dir_y * MOV;
-	y = player->pos_y - player->dir_x * MOV;
+	if (player->is_running == true)
+		player->movespeed = 0.15;
+	x = player->pos_x + player->dir_y * player->movespeed;
+	y = player->pos_y - player->dir_x * player->movespeed;
 	if (map->tiles[(int) y][(int) x] == '0')
 	{
-		if (!pid[1])
-			system("afplay ./textures/horse_slow.mp3 &");
-		pid[1] = get_pid("./textures/horse_slow.mp3");
+		play_walk_sound(player, pid, true);
 		player->pos_x = x;
 		player->pos_y = y;
 	}
@@ -65,13 +83,13 @@ void	move_left(t_player *player, t_map *map, pid_t *pid)
 	float	x;
 	float	y;
 
-	x = player->pos_x - player->dir_y * MOV;
-	y = player->pos_y + player->dir_x * MOV;
+	if (player->is_running == true)
+		player->movespeed = 0.15;
+	x = player->pos_x - player->dir_y * player->movespeed;
+	y = player->pos_y + player->dir_x * player->movespeed;
 	if (map->tiles[(int) y][(int) x] == '0')
 	{
-		if (!pid[1])
-			system("afplay ./textures/horse_slow.mp3 &");
-		pid[1] = get_pid("./textures/horse_slow.mp3");
+		play_walk_sound(player, pid, true);
 		player->pos_x = x;
 		player->pos_y = y;
 	}
@@ -82,13 +100,13 @@ void	move_up(t_player *player, t_map *map, pid_t *pid)
 	float	y;
 	float	x;
 
-	x = player->pos_x + player->dir_x * MOV;
-	y = player->pos_y + player->dir_y * MOV;
+	if (player->is_running == true)
+		player->movespeed = 0.1;
+	x = player->pos_x + player->dir_x * player->movespeed;
+	y = player->pos_y + player->dir_y * player->movespeed;
 	if (map->tiles[(int) y][(int) x] == '0')
 	{
-		if (!pid[1])
-			system("afplay ./textures/horse_slow.mp3 &");
-		pid[1] = get_pid("./textures/horse_slow.mp3");
+		play_walk_sound(player, pid, true);
 		player->pos_x = x;
 		player->pos_y = y;
 	}
@@ -99,13 +117,11 @@ void	move_down(t_player *player, t_map *map, pid_t *pid)
 	float	y;
 	float	x;
 
-	x = player->pos_x - player->dir_x * MOV;
-	y = player->pos_y - player->dir_y * MOV;
+	x = player->pos_x - player->dir_x * player->movespeed;
+	y = player->pos_y - player->dir_y * player->movespeed;
 	if (map->tiles[(int) y][(int) x] == '0')
 	{
-		if (!pid[1])
-			system("afplay ./textures/horse_slow.mp3 &");
-		pid[1] = get_pid("./textures/horse_slow.mp3");
+		play_walk_sound(player, pid, false);
 		player->pos_x = x;
 		player->pos_y = y;
 	}
@@ -177,12 +193,13 @@ void	my_keyhook(void *param)
 	t_cub *cub;
 
 	cub = (t_cub *) param;
+	cub->player->movespeed = 0.05;
 	if (mlx_is_key_down(cub->mlx, MLX_KEY_ESCAPE))
 		exit_game_success(cub);
-	if (is_trip_start(cub))
-		reverse_mov(cub);
-	else
-	{
+	// if (is_trip_start(cub))
+	// 	reverse_mov(cub);
+	// else
+	// {
 		if ((mlx_is_key_down(cub->mlx, MLX_KEY_W) || mlx_is_key_down(cub->mlx, MLX_KEY_UP)))
 			move_up(cub->player, cub->map, cub->pid);
 		else if ((mlx_is_key_down(cub->mlx, MLX_KEY_S) || mlx_is_key_down(cub->mlx, MLX_KEY_DOWN)))
@@ -198,10 +215,15 @@ void	my_keyhook(void *param)
 		if (mlx_is_key_down(cub->mlx, MLX_KEY_LEFT))
 			rotate_left(cub->player);
 		if (cub->pid[0] && mlx_is_key_down(cub->mlx, MLX_KEY_M))
-		{
 			kill(cub->pid[0], SIGKILL);
-			cub->pid[0] = 0;
+		if (mlx_is_key_down(cub->mlx, MLX_KEY_LEFT_SHIFT))
+			cub->player->is_running = true;
+		else
+		{
+			cub->player->is_running = false;
+			if (cub->pid[2])
+				kill(cub->pid[2], SIGKILL);
 		}
-	}
+	// }
 	raycast(cub);
 }

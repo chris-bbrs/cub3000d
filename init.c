@@ -6,7 +6,7 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 15:48:41 by cboubour          #+#    #+#             */
-/*   Updated: 2023/01/10 20:34:35 by gjupy            ###   ########.fr       */
+/*   Updated: 2023/01/10 21:57:36 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,4 +82,5 @@ void	initialize(t_cub *cub)
 	system("afplay -v 0.4 ./textures/ketamine_dreams.mp3 &");
 	cub->pid[0] = get_pid("./textures/ketamine_dreams.mp3");
 	cub->pid[1] = 0;
+	cub->pid[2] = 0;
 }
