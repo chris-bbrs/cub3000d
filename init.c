@@ -6,7 +6,7 @@
 /*   By: cboubour <cboubour@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 15:48:41 by cboubour          #+#    #+#             */
-/*   Updated: 2023/01/11 18:56:58 by cboubour         ###   ########.fr       */
+/*   Updated: 2023/01/11 21:12:36 by cboubour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,10 +58,10 @@ static void	init_images(t_cub *cub)
 	mlx_texture_t	*temp;
 
 	cub->tex->tex = malloc(sizeof(mlx_texture_t *) * 4);
-	cub->tex->tex[0] = mlx_load_png(cub->map->ea); // dino
-	cub->tex->tex[1] = mlx_load_png(cub->map->we); // monkey
-	cub->tex->tex[2] = mlx_load_png(cub->map->no); // aquatic
-	cub->tex->tex[3] = mlx_load_png(cub->map->so); // lost
+	cub->tex->tex[0] = mlx_load_png(cub->map->ea);
+	cub->tex->tex[1] = mlx_load_png(cub->map->we);
+	cub->tex->tex[2] = mlx_load_png(cub->map->no);
+	cub->tex->tex[3] = mlx_load_png(cub->map->so);
 	temp = mlx_load_png("./textures/player.png");
 	cub->img->player = mlx_texture_to_image(cub->mlx, temp);
 	free(temp);
@@ -69,7 +69,8 @@ static void	init_images(t_cub *cub)
 	if (mlx_image_to_window(cub->mlx, cub->img->b_img, 0, 0) == -1)
 		rerror("put_background failed");
 	if (mlx_image_to_window(cub->mlx, cub->img->player,
-		(S_WIDTH - cub->img->player->width) / 2, S_HEIGHT- cub->img->player->height) == -1)
+			(S_WIDTH - cub->img->player->width) / 2,
+			S_HEIGHT - cub->img->player->height) == -1)
 		rerror("put_horse failed");
 	mlx_set_setting(MLX_STRETCH_IMAGE, 1);
 }
@@ -80,7 +81,7 @@ void	initialize(t_cub *cub)
 	set_player(cub);
 	init_images(cub);
 	cub->start_time = get_time();
-	// system("afplay -v 0.4 ./textures/ketamine_dreams.mp3 &");
+	system("afplay -v 0.4 ./textures/ketamine_dreams.mp3 &");
 	cub->pid[0] = get_pid("./textures/ketamine_dreams.mp3");
 	cub->pid[1] = 0;
 	cub->pid[2] = 0;

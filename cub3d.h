@@ -153,4 +153,8 @@ int			rerror(char *str);
 void		check_map(t_map *map);
 void		initialize(t_cub *cub);
 
+void	map_array(t_map *map, char *map_name, int fd);
+t_bool	check_params_exist(t_map *map);
+t_map	*init_map_struct(void);
+
 #endif

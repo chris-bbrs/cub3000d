@@ -23,7 +23,8 @@ SRC = 	main.c \
 		key_hooks.c \
 		init.c \
 		raycasting.c \
-		utils.c
+		utils.c \
+		parsing_utils.c
 
 OBJ = 	$(SRC:.c=.o)
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   key_hooks.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
+/*   By: cboubour <cboubour@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 15:48:24 by gjupy             #+#    #+#             */
-/*   Updated: 2023/01/11 19:45:33 by gjupy            ###   ########.fr       */
+/*   Updated: 2023/01/11 21:45:38 by cboubour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -210,10 +210,10 @@ void	my_keyhook(void *param)
 	mouse_rotation(cub);
 	if (mlx_is_key_down(cub->mlx, MLX_KEY_ESCAPE))
 		exit_game_success(cub);
-	// if (is_trip_start(cub))
-	// 	reverse_mov(cub);
-	// else
-	// {
+	if (is_trip_start(cub))
+		reverse_mov(cub);
+	else
+	{
 		if ((mlx_is_key_down(cub->mlx, MLX_KEY_W) || mlx_is_key_down(cub->mlx, MLX_KEY_UP)))
 			move_up(cub->player, cub->map, cub->pid);
 		else if ((mlx_is_key_down(cub->mlx, MLX_KEY_S) || mlx_is_key_down(cub->mlx, MLX_KEY_DOWN)))
@@ -239,6 +239,6 @@ void	my_keyhook(void *param)
 				kill(cub->pid[2], SIGKILL);
 		}
 		mlx_get_mouse_pos(cub->mlx, &cub->mouse->tmp_x, &cub->mouse->tmp_y);
-	// }
+	}
 	raycast(cub);
 }
