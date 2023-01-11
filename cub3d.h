@@ -86,11 +86,11 @@ typedef struct s_ray{
 	float	camera;
 	float	dir_x;
 	float	dir_y;
-	float	sideDist_x;
-	float	sideDist_y;
-	float	deltaDist_x;
-	float	deltaDist_y;
-	float	wallDist;
+	float	side_dist_x;
+	float	side_dist_y;
+	float	delta_dist_x;
+	float	delta_dist_y;
+	float	wall_dist;
 	int		side;
 	int		step_x;
 	int		step_y;
@@ -100,9 +100,9 @@ typedef struct s_ray{
 
 typedef struct s_draw_wall
 {
-	int	lineHeight;
-	int	drawStart;
-	int	drawEnd;
+	int	line_height;
+	int	draw_start;
+	int	draw_end;
 }	t_draw_wall;
 
 typedef struct s_texture
@@ -116,15 +116,15 @@ typedef struct s_mouse
 {
 	int	x;
 	int	y;
-	int tmp_x;
-	int tmp_y;
+	int	tmp_x;
+	int	tmp_y;
 }	t_mouse;
 
 typedef struct s_game_structs
 {
 	t_map		*map;
 	mlx_t		*mlx;
- 	t_player	*player;
+	t_player	*player;
 	t_img		*img;
 	t_ray		*ray;
 	t_draw_wall	*draw_wall;
@@ -137,20 +137,32 @@ typedef struct s_game_structs
 	int			wall_direction;
 }	t_cub;
 
-void	exit_game_success(t_cub *cub);
+void	initialize(t_cub *cub);
 
+void	play_walk_sound(t_player *player, pid_t *pid, bool run);
+bool	is_trip_start(t_cub *cub);
+void	reverse_mov(t_cub *cub);
 time_t	get_time(void);
-pid_t	get_pid(char *s);
+
+void	rotate_right(t_player *player);
+void	rotate_left(t_player *player);
+void	mouse_rotation(t_cub *cub);
+
+void	move_right(t_player *player, t_map *map, pid_t *pid);
+void	move_left(t_player *player, t_map *map, pid_t *pid);
+void	move_up(t_player *player, t_map *map, pid_t *pid);
+void	move_down(t_player *player, t_map *map, pid_t *pid);
 
 void	my_keyhook(void *param);
 void	set_player(t_cub *cub);
 void	raycast(t_cub *cub);
 void	draw_bg(t_cub *cub, int raycount);
 
-t_map		*initialize_map(char *map);
-void		exit_map(t_map *to_free, char *str);
-int			rerror(char *str);
-void		check_map(t_map *map);
-void		initialize(t_cub *cub);
+void	check_map(t_map *map);
+t_map	*initialize_map(char *map);
+
+void	exit_map(t_map *to_free, char *str);
+void	exit_game_success(t_cub *cub);
+int		rerror(char *str);
 
 #endif

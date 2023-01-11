@@ -6,7 +6,7 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 17:02:50 by gjupy             #+#    #+#             */
-/*   Updated: 2023/01/11 19:46:28 by gjupy            ###   ########.fr       */
+/*   Updated: 2023/01/11 21:37:50 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,15 +20,15 @@ void	dda(t_cub *cub)
 	while (hit == false)
 	{
 		// jump to next map square, either in x-direction, or in y-direction
-		if (cub->ray->sideDist_x < cub->ray->sideDist_y)
+		if (cub->ray->side_dist_x < cub->ray->side_dist_y)
 		{
-			cub->ray->sideDist_x += cub->ray->deltaDist_x;
+			cub->ray->side_dist_x += cub->ray->delta_dist_x;
 			cub->ray->pos_x += cub->ray->step_x;
 			cub->ray->side = 0;
 		}
 		else
 		{
-			cub->ray->sideDist_y += cub->ray->deltaDist_y;
+			cub->ray->side_dist_y += cub->ray->delta_dist_y;
 			cub->ray->pos_y += cub->ray->step_y;
 			cub->ray->side = 1;
 		}
@@ -54,10 +54,10 @@ static double	find_wall_x(t_cub *cub, t_ray *ray)
 	double	wall_x;
 
 	if (ray->side == 0)
-		wall_x = cub->player->pos_y + (ray->wallDist * ray->dir_y);
+		wall_x = cub->player->pos_y + (ray->wall_dist * ray->dir_y);
 	else
 	{
-		wall_x = cub->player->pos_x + (ray->wallDist * ray->dir_x);
+		wall_x = cub->player->pos_x + (ray->wall_dist * ray->dir_x);
 	}
 	wall_x -= floor(wall_x);
 	return (wall_x);
@@ -83,10 +83,10 @@ void	draw_vertical_line(t_cub *cub, int raycount)
 
 	sd = cub->wall_direction;
 	cub->tex->tex_x = find_texture_x(cub, cub->tex->tex[sd], cub->ray);
-	step = ((double)cub->tex->tex[sd]->height) / cub->draw_wall->lineHeight;
-	texture_pos = (cub->draw_wall->drawStart - (S_HEIGHT / 2) + (cub->draw_wall->lineHeight / 2)) * step;
-	i = cub->draw_wall->drawStart;
-	while (i < cub->draw_wall->drawEnd)
+	step = ((double)cub->tex->tex[sd]->height) / cub->draw_wall->line_height;
+	texture_pos = (cub->draw_wall->draw_start - (S_HEIGHT / 2) + (cub->draw_wall->line_height / 2)) * step;
+	i = cub->draw_wall->draw_start;
+	while (i < cub->draw_wall->draw_end)
 	{
 		cub->tex->tex_y = (int)(texture_pos) & (cub->tex->tex[sd]->height - 1);
 		texture_pos += step;
@@ -120,9 +120,9 @@ void	draw_bg(t_cub *cub, int raycount)
 	i = 0;
 	while (i < S_HEIGHT)
 	{
-		if (i <= cub->draw_wall->drawStart)
+		if (i <= cub->draw_wall->draw_start)
 			mlx_put_pixel(cub->img->b_img, raycount, i, c_colour);
-		else if (i >= cub->draw_wall->drawEnd)
+		else if (i >= cub->draw_wall->draw_end)
 			mlx_put_pixel(cub->img->b_img, raycount, i, f_colour);
 		i++;
 	}
@@ -138,13 +138,13 @@ void	calc_ray(t_ray *ray, t_player *player, int raycount)
 	ray->pos_x = (int) player->pos_x;
 	ray->pos_y = (int) player->pos_y;
 	if (ray->dir_x == 0)
-		ray->deltaDist_x = INFINITY;
+		ray->delta_dist_x = INFINITY;
 	else
-		ray->deltaDist_x = fabs(1.0 / ray->dir_x);
+		ray->delta_dist_x = fabs(1.0 / ray->dir_x);
 	if (ray->dir_y == 0)
-		ray->deltaDist_y = INFINITY;
+		ray->delta_dist_y = INFINITY;
 	else
-		ray->deltaDist_y = fabs(1.0 / ray->dir_y);
+		ray->delta_dist_y = fabs(1.0 / ray->dir_y);
 }
 
 void	calc_step_side(t_cub *cub)
@@ -152,29 +152,29 @@ void	calc_step_side(t_cub *cub)
 	if (cub->ray->dir_x < 0)
 	{
 		cub->ray->step_x = -1;
-		cub->ray->sideDist_x = (cub->player->pos_x - cub->ray->pos_x)
-			* cub->ray->deltaDist_x;
+		cub->ray->side_dist_x = (cub->player->pos_x - cub->ray->pos_x)
+			* cub->ray->delta_dist_x;
 		cub->potential_side_x = 2;
 	}
 	else
 	{
 		cub->ray->step_x = 1;
-		cub->ray->sideDist_x = (cub->ray->pos_x + 1.0 - cub->player->pos_x)
-			* cub->ray->deltaDist_x;
+		cub->ray->side_dist_x = (cub->ray->pos_x + 1.0 - cub->player->pos_x)
+			* cub->ray->delta_dist_x;
 		cub->potential_side_x = 3;
 	}
 	if (cub->ray->dir_y < 0)
 	{
 		cub->ray->step_y = -1;
-		cub->ray->sideDist_y = (cub->player->pos_y - cub->ray->pos_y)
-			* cub->ray->deltaDist_y;
+		cub->ray->side_dist_y = (cub->player->pos_y - cub->ray->pos_y)
+			* cub->ray->delta_dist_y;
 		cub->potential_side_y = 0;
 	}
 	else
 	{
 		cub->ray->step_y = 1;
-		cub->ray->sideDist_y = (cub->ray->pos_y + 1.0 - cub->player->pos_y)
-			* cub->ray->deltaDist_y;
+		cub->ray->side_dist_y = (cub->ray->pos_y + 1.0 - cub->player->pos_y)
+			* cub->ray->delta_dist_y;
 		cub->potential_side_y = 1;
 	}
 }
@@ -183,22 +183,22 @@ void	calc_wall(t_cub *cub)
 {
 	if (cub->ray->side == 0)
 	{
-		cub->ray->wallDist = (cub->ray->sideDist_x - cub->ray->deltaDist_x);
+		cub->ray->wall_dist = (cub->ray->side_dist_x - cub->ray->delta_dist_x);
 		cub->wall_direction = cub->potential_side_x;
 	}
 	else
 	{
-		cub->ray->wallDist = (cub->ray->sideDist_y - cub->ray->deltaDist_y);
+		cub->ray->wall_dist = (cub->ray->side_dist_y - cub->ray->delta_dist_y);
 		cub->wall_direction = cub->potential_side_y;
 	}
 
-	cub->draw_wall->lineHeight = (int)(S_HEIGHT * 0.5) / cub->ray->wallDist;
-	cub->draw_wall->drawStart = (S_HEIGHT / 2) - (cub->draw_wall->lineHeight / 2);
-	if(cub->draw_wall->drawStart < 0)
-		cub->draw_wall->drawStart = 0;
-	cub->draw_wall->drawEnd = (S_HEIGHT / 2) + (cub->draw_wall->lineHeight / 2);
-	if (cub->draw_wall->drawEnd >= S_HEIGHT)
-		cub->draw_wall->drawEnd = S_HEIGHT - 1;
+	cub->draw_wall->line_height = (int)(S_HEIGHT * 0.5) / cub->ray->wall_dist;
+	cub->draw_wall->draw_start = (S_HEIGHT / 2) - (cub->draw_wall->line_height / 2);
+	if(cub->draw_wall->draw_start < 0)
+		cub->draw_wall->draw_start = 0;
+	cub->draw_wall->draw_end = (S_HEIGHT / 2) + (cub->draw_wall->line_height / 2);
+	if (cub->draw_wall->draw_end >= S_HEIGHT)
+		cub->draw_wall->draw_end = S_HEIGHT - 1;
 }
 
 void	raycast(t_cub *cub)

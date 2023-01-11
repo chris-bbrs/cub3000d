@@ -21,9 +21,10 @@ SRC = 	main.c \
 		check_map.c \
 		player.c \
 		key_hooks.c \
+		movement.c rotation.c \
 		init.c \
 		raycasting.c \
-		utils.c
+		utils.c \
 
 OBJ = 	$(SRC:.c=.o)
 
@@ -41,8 +42,5 @@ clean:
 fclean:
 	make clean
 	rm -f $(NAME)
-
-valgrind: re
-	valgrind --quiet --tool=memcheck --leak-check=full --show-leak-kinds=all --track-fds=yes ./minishell
 
 re: fclean all

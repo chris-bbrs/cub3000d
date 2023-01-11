@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cboubour <cboubour@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 15:48:41 by cboubour          #+#    #+#             */
-/*   Updated: 2023/01/11 18:56:58 by cboubour         ###   ########.fr       */
+/*   Updated: 2023/01/11 21:55:21 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,8 +80,8 @@ void	initialize(t_cub *cub)
 	set_player(cub);
 	init_images(cub);
 	cub->start_time = get_time();
-	// system("afplay -v 0.4 ./textures/ketamine_dreams.mp3 &");
-	cub->pid[0] = get_pid("./textures/ketamine_dreams.mp3");
+	mlx_start_sound(0, "afplay -v 0.6 ./textures/ketamine_dreams.mp3 &");
+	cub->pid[0] = mlx_get_pid("./textures/ketamine_dreams.mp3");
 	cub->pid[1] = 0;
 	cub->pid[2] = 0;
 }
