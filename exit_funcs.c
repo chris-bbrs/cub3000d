@@ -6,11 +6,37 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 22:58:50 by cboubour          #+#    #+#             */
-/*   Updated: 2023/01/04 15:54:23 by gjupy            ###   ########.fr       */
+/*   Updated: 2023/01/10 20:41:57 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+void	free_strings(char ***s)
+{
+	int	i;
+
+	i = 0;
+	while ((*s)[i])
+	{
+		free((*s)[i]);
+		i++;
+	}
+	free(*s);
+}
+
+void	free_structs(t_cub *cub)
+{
+	mlx_texture_t	***tmp;
+
+	free(cub->player);
+	free(cub->ray);
+	free(cub->draw_wall);
+	tmp = &cub->tex->tex;
+	free(*tmp);
+	free(cub->tex);
+	free(cub->img);
+}
 
 void	exit_map(t_map *to_free, char *str)
 {
@@ -35,11 +61,15 @@ int	rerror(char *str)
 	exit(EXIT_FAILURE);
 }
 
-// void	exit_game_success(t_game *game)
-// {
-// 	mlx_close_window(game->window.mlx);
-// 	mlx_delete_image(game->window.mlx, game->window.image);
-// 	mlx_terminate(game->window.mlx);
-// 	free_strings(&game->map, game->height);
-// 	exit(EXIT_SUCCESS);
-// }
+void	exit_game_success(t_cub *cub)
+{
+	if (cub->pid[0])
+		kill(cub->pid[0], SIGKILL);
+	mlx_close_window(cub->mlx);
+	mlx_delete_image(cub->mlx, cub->img->b_img);
+	mlx_delete_image(cub->mlx, cub->img->player);
+	mlx_terminate(cub->mlx);
+	free_strings(&cub->map->tiles);
+	free_structs(cub);
+	exit(EXIT_SUCCESS);
+}

@@ -22,6 +22,8 @@ SRC = 	main.c \
 		player.c \
 		key_hooks.c \
 		init.c \
+		raycasting.c \
+		utils.c
 
 OBJ = 	$(SRC:.c=.o)
 
