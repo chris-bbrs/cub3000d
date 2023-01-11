@@ -115,6 +115,14 @@ typedef struct s_texture
 	int				tex_y;
 }	t_tex;
 
+typedef struct s_mouse
+{
+	int	x;
+	int	y;
+	int tmp_x;
+	int tmp_y;
+}	t_mouse;
+
 typedef struct s_game_structs
 {
 	t_map		*map;
@@ -124,6 +132,7 @@ typedef struct s_game_structs
 	t_ray		*ray;
 	t_draw_wall	*draw_wall;
 	t_tex		*tex;
+	t_mouse		*mouse;
 	time_t		start_time;
 	pid_t		pid[3];
 }	t_cub;

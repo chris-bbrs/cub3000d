@@ -6,7 +6,7 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 15:48:24 by gjupy             #+#    #+#             */
-/*   Updated: 2023/01/10 22:09:29 by gjupy            ###   ########.fr       */
+/*   Updated: 2023/01/11 18:39:11 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -188,12 +188,26 @@ void	reverse_mov(t_cub *cub)
 	}
 }
 
+void	mouse_rotation(t_cub *cub)
+{
+	if (!mlx_is_key_down(cub->mlx, MLX_KEY_TAB))
+	{
+		mlx_set_cursor_mode(cub->mlx, MLX_MOUSE_HIDDEN);
+		if (cub->mouse->x > S_WIDTH / 2 || cub->mouse->x < S_WIDTH / 2 || cub->mouse->y > S_HEIGHT / 2 || cub->mouse->y < S_HEIGHT / 2)
+			mlx_set_mouse_pos(cub->mlx, S_WIDTH / 2, S_HEIGHT / 2);
+		mlx_get_mouse_pos(cub->mlx, &cub->mouse->x, &cub->mouse->y);
+	}
+	else
+		mlx_set_cursor_mode(cub->mlx, MLX_MOUSE_NORMAL);
+}
+
 void	my_keyhook(void *param)
 {
 	t_cub *cub;
 
 	cub = (t_cub *) param;
 	cub->player->movespeed = 0.05;
+	mouse_rotation(cub);
 	if (mlx_is_key_down(cub->mlx, MLX_KEY_ESCAPE))
 		exit_game_success(cub);
 	// if (is_trip_start(cub))
@@ -210,9 +224,9 @@ void	my_keyhook(void *param)
 			move_right(cub->player, cub->map, cub->pid);
 		else if (cub->pid[1])
 			kill(cub->pid[1], SIGKILL);
-		if (mlx_is_key_down(cub->mlx, MLX_KEY_RIGHT))
+		if ((mlx_is_key_down(cub->mlx, MLX_KEY_RIGHT) || cub->mouse->tmp_x > S_WIDTH / 2) && !mlx_is_key_down(cub->mlx, MLX_KEY_TAB))
 			rotate_right(cub->player);
-		if (mlx_is_key_down(cub->mlx, MLX_KEY_LEFT))
+		if ((mlx_is_key_down(cub->mlx, MLX_KEY_LEFT) || cub->mouse->tmp_x < S_WIDTH / 2) && !mlx_is_key_down(cub->mlx, MLX_KEY_TAB))
 			rotate_left(cub->player);
 		if (cub->pid[0] && mlx_is_key_down(cub->mlx, MLX_KEY_M))
 			kill(cub->pid[0], SIGKILL);
@@ -224,6 +238,8 @@ void	my_keyhook(void *param)
 			if (cub->pid[2])
 				kill(cub->pid[2], SIGKILL);
 		}
+		mlx_get_mouse_pos(cub->mlx, &cub->mouse->tmp_x, &cub->mouse->tmp_y);
+
 	// }
 	raycast(cub);
 }
