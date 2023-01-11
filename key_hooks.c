@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   key_hooks.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
+/*   By: cboubour <cboubour@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 15:48:24 by gjupy             #+#    #+#             */
-/*   Updated: 2023/01/11 18:39:11 by gjupy            ###   ########.fr       */
+/*   Updated: 2023/01/11 18:58:33 by cboubour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,7 +132,7 @@ void	rotate_right(t_player *player)
 	//both camera direction and camera plane must be rotated
 	float	old_dir_x;
 	float	old_plane_x;
-	
+
 	old_dir_x = player->dir_x;
 	player->dir_x = player->dir_x * cos(-ROT) - player->dir_y * sin(-ROT);
 	player->dir_y = old_dir_x * sin(-ROT) + player->dir_y * cos(-ROT);
@@ -210,10 +210,10 @@ void	my_keyhook(void *param)
 	mouse_rotation(cub);
 	if (mlx_is_key_down(cub->mlx, MLX_KEY_ESCAPE))
 		exit_game_success(cub);
-	// if (is_trip_start(cub))
-	// 	reverse_mov(cub);
-	// else
-	// {
+	if (is_trip_start(cub))
+		reverse_mov(cub);
+	else
+	{
 		if ((mlx_is_key_down(cub->mlx, MLX_KEY_W) || mlx_is_key_down(cub->mlx, MLX_KEY_UP)))
 			move_up(cub->player, cub->map, cub->pid);
 		else if ((mlx_is_key_down(cub->mlx, MLX_KEY_S) || mlx_is_key_down(cub->mlx, MLX_KEY_DOWN)))
@@ -238,8 +238,6 @@ void	my_keyhook(void *param)
 			if (cub->pid[2])
 				kill(cub->pid[2], SIGKILL);
 		}
-		mlx_get_mouse_pos(cub->mlx, &cub->mouse->tmp_x, &cub->mouse->tmp_y);
-
-	// }
+	}
 	raycast(cub);
 }
