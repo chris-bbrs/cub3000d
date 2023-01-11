@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   key_hooks.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cboubour <cboubour@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 15:48:24 by gjupy             #+#    #+#             */
-/*   Updated: 2023/01/11 18:58:33 by cboubour         ###   ########.fr       */
+/*   Updated: 2023/01/11 19:45:33 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -210,10 +210,10 @@ void	my_keyhook(void *param)
 	mouse_rotation(cub);
 	if (mlx_is_key_down(cub->mlx, MLX_KEY_ESCAPE))
 		exit_game_success(cub);
-	if (is_trip_start(cub))
-		reverse_mov(cub);
-	else
-	{
+	// if (is_trip_start(cub))
+	// 	reverse_mov(cub);
+	// else
+	// {
 		if ((mlx_is_key_down(cub->mlx, MLX_KEY_W) || mlx_is_key_down(cub->mlx, MLX_KEY_UP)))
 			move_up(cub->player, cub->map, cub->pid);
 		else if ((mlx_is_key_down(cub->mlx, MLX_KEY_S) || mlx_is_key_down(cub->mlx, MLX_KEY_DOWN)))
@@ -224,9 +224,9 @@ void	my_keyhook(void *param)
 			move_right(cub->player, cub->map, cub->pid);
 		else if (cub->pid[1])
 			kill(cub->pid[1], SIGKILL);
-		if ((mlx_is_key_down(cub->mlx, MLX_KEY_RIGHT) || cub->mouse->tmp_x > S_WIDTH / 2) && !mlx_is_key_down(cub->mlx, MLX_KEY_TAB))
+		if ((mlx_is_key_down(cub->mlx, MLX_KEY_RIGHT) || (cub->mouse->tmp_x > S_WIDTH / 2) && !mlx_is_key_down(cub->mlx, MLX_KEY_TAB)))
 			rotate_right(cub->player);
-		if ((mlx_is_key_down(cub->mlx, MLX_KEY_LEFT) || cub->mouse->tmp_x < S_WIDTH / 2) && !mlx_is_key_down(cub->mlx, MLX_KEY_TAB))
+		if ((mlx_is_key_down(cub->mlx, MLX_KEY_LEFT) || (cub->mouse->tmp_x < S_WIDTH / 2) && !mlx_is_key_down(cub->mlx, MLX_KEY_TAB)))
 			rotate_left(cub->player);
 		if (cub->pid[0] && mlx_is_key_down(cub->mlx, MLX_KEY_M))
 			kill(cub->pid[0], SIGKILL);
@@ -238,6 +238,7 @@ void	my_keyhook(void *param)
 			if (cub->pid[2])
 				kill(cub->pid[2], SIGKILL);
 		}
-	}
+		mlx_get_mouse_pos(cub->mlx, &cub->mouse->tmp_x, &cub->mouse->tmp_y);
+	// }
 	raycast(cub);
 }

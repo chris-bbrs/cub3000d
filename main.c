@@ -30,5 +30,4 @@ int	main(int argc, char *argv[])
 	else
 		printf("Error\nWrong number of arguments.\n");
 	exit(EXIT_SUCCESS);
-	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cboubour <cboubour@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 17:02:50 by gjupy             #+#    #+#             */
-/*   Updated: 2023/01/11 18:35:53 by cboubour         ###   ########.fr       */
+/*   Updated: 2023/01/11 19:46:28 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -192,7 +192,7 @@ void	calc_wall(t_cub *cub)
 		cub->wall_direction = cub->potential_side_y;
 	}
 
-	cub->draw_wall->lineHeight = (int)(S_HEIGHT * 1) / cub->ray->wallDist;
+	cub->draw_wall->lineHeight = (int)(S_HEIGHT * 0.5) / cub->ray->wallDist;
 	cub->draw_wall->drawStart = (S_HEIGHT / 2) - (cub->draw_wall->lineHeight / 2);
 	if(cub->draw_wall->drawStart < 0)
 		cub->draw_wall->drawStart = 0;
