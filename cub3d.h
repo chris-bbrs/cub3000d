@@ -30,12 +30,8 @@
 
 # define S_WIDTH 1920
 # define S_HEIGHT 1080
-# define PLANE 0.8
-# define MOV 0.06
+# define PLANE 1.66
 # define ROT 0.06
-# define FOV 0.66 // Field of view in degrees
-# define NUM_RAYS 360 // Number of rays to cast
-# define RAY_ANGLE FOV / NUM_RAYS // Angle between each ray
 
 typedef enum e_bool
 {
@@ -58,6 +54,7 @@ typedef struct s_map_details
 }	t_map;
 
 typedef struct s_player{
+	bool	is_running;
 	float	pos_x;
 	float	pos_y;
 	float	dir_x;
@@ -115,6 +112,14 @@ typedef struct s_texture
 	int				tex_y;
 }	t_tex;
 
+typedef struct s_mouse
+{
+	int	x;
+	int	y;
+	int tmp_x;
+	int tmp_y;
+}	t_mouse;
+
 typedef struct s_game_structs
 {
 	t_map		*map;
@@ -124,8 +129,9 @@ typedef struct s_game_structs
 	t_ray		*ray;
 	t_draw_wall	*draw_wall;
 	t_tex		*tex;
+	t_mouse		*mouse;
 	time_t		start_time;
-	pid_t		pid[2];
+	pid_t		pid[3];
 	int			potential_side_x;
 	int			potential_side_y;
 	int			wall_direction;

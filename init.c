@@ -6,7 +6,7 @@
 /*   By: cboubour <cboubour@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 15:48:41 by cboubour          #+#    #+#             */
-/*   Updated: 2023/01/11 06:35:51 by cboubour         ###   ########.fr       */
+/*   Updated: 2023/01/11 18:56:58 by cboubour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,9 @@ void	init_structs(t_cub *cub)
 	cub->draw_wall = malloc(sizeof(t_draw_wall));
 	cub->tex = malloc(sizeof(t_tex));
 	cub->img = ft_calloc(1, sizeof(t_img));
+	cub->mouse = malloc(sizeof(t_mouse));
 	if (cub->player == NULL || cub->ray == NULL || cub->draw_wall == NULL
-		|| cub->tex == NULL || cub->img == NULL)
+		|| cub->tex == NULL || cub->img == NULL || cub->mouse == NULL)
 		exit(ENOMEM);
 }
 
@@ -79,7 +80,8 @@ void	initialize(t_cub *cub)
 	set_player(cub);
 	init_images(cub);
 	cub->start_time = get_time();
-	system("afplay -v 0.4 ./textures/ketamine_dreams.mp3 &");
+	// system("afplay -v 0.4 ./textures/ketamine_dreams.mp3 &");
 	cub->pid[0] = get_pid("./textures/ketamine_dreams.mp3");
 	cub->pid[1] = 0;
+	cub->pid[2] = 0;
 }

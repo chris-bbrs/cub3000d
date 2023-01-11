@@ -25,11 +25,7 @@ int	main(int argc, char *argv[])
 		initialize(&cub);
 		mlx_loop_hook(cub.mlx, &my_keyhook, &cub);
 		mlx_loop(cub.mlx);
-		if (cub.pid[0])
-			kill(cub.pid[0], SIGKILL);
-		mlx_close_window(cub.mlx);
-		mlx_delete_image(cub.mlx, cub.img->b_img);
-		mlx_terminate(cub.mlx);
+		exit_game_success(&cub);
 	}
 	else
 		printf("Error\nWrong number of arguments.\n");
