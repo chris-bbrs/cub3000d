@@ -157,4 +157,8 @@ void	map_array(t_map *map, char *map_name, int fd);
 t_bool	check_params_exist(t_map *map);
 t_map	*init_map_struct(void);
 
+void	dda(t_cub *cub);
+void	draw_bg(t_cub *cub, int raycount);
+void	draw_vertical_line(t_cub *cub, int raycount);
+
 #endif

@@ -24,7 +24,8 @@ SRC = 	main.c \
 		init.c \
 		raycasting.c \
 		utils.c \
-		parsing_utils.c
+		parsing_utils.c \
+		raycast_utils.c
 
 OBJ = 	$(SRC:.c=.o)
 
