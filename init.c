@@ -6,7 +6,7 @@
 /*   By: cboubour <cboubour@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 15:48:41 by cboubour          #+#    #+#             */
-/*   Updated: 2023/01/11 23:04:08 by cboubour         ###   ########.fr       */
+/*   Updated: 2023/01/11 23:19:53 by cboubour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static void	create_floor_ceil(t_cub *cub)
 	f_colour = (cub->map->f[0] << 24) | (cub->map->f[1] << 16);
 	f_colour = f_colour | (cub->map->f[2] << 8) | 255;
 	c_colour = (cub->map->c[0] << 24) | (cub->map->c[1] << 16);
-	c_colour = c_colour | (cub->map->c[2]  << 8) | 255;
+	c_colour = c_colour | (cub->map->c[2] << 8) | 255;
 	i = 0;
 	while (i < S_HEIGHT)
 	{

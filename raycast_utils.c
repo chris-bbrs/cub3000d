@@ -6,7 +6,7 @@
 /*   By: cboubour <cboubour@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 22:41:41 by cboubour          #+#    #+#             */
-/*   Updated: 2023/01/11 22:45:37 by cboubour         ###   ########.fr       */
+/*   Updated: 2023/01/11 23:20:06 by cboubour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,15 @@ void	dda(t_cub *cub)
 	hit = false;
 	while (hit == false)
 	{
-		if (cub->ray->sideDist_x < cub->ray->sideDist_y)
+		if (cub->ray->side_dist_x < cub->ray->side_dist_y)
 		{
-			cub->ray->sideDist_x += cub->ray->deltaDist_x;
+			cub->ray->side_dist_x += cub->ray->delta_dist_x;
 			cub->ray->pos_x += cub->ray->step_x;
 			cub->ray->side = 0;
 		}
 		else
 		{
-			cub->ray->sideDist_y += cub->ray->deltaDist_y;
+			cub->ray->side_dist_y += cub->ray->delta_dist_y;
 			cub->ray->pos_y += cub->ray->step_y;
 			cub->ray->side = 1;
 		}
@@ -50,13 +50,13 @@ void	draw_bg(t_cub *cub, int raycount)
 	f_colour = (cub->map->f[0] << 24) | (cub->map->f[1] << 16);
 	f_colour = f_colour | (cub->map->f[2] << 8) | 255;
 	c_colour = (cub->map->c[0] << 24) | (cub->map->c[1] << 16);
-	c_colour = c_colour | (cub->map->c[2]  << 8) | 255;
+	c_colour = c_colour | (cub->map->c[2] << 8) | 255;
 	i = 0;
 	while (i < S_HEIGHT)
 	{
-		if (i <= cub->draw_wall->drawStart)
+		if (i <= cub->draw_wall->draw_start)
 			mlx_put_pixel(cub->img->b_img, raycount, i, c_colour);
-		else if (i >= cub->draw_wall->drawEnd)
+		else if (i >= cub->draw_wall->draw_end)
 			mlx_put_pixel(cub->img->b_img, raycount, i, f_colour);
 		i++;
 	}
@@ -67,10 +67,10 @@ static double	find_wall_x(t_cub *cub, t_ray *ray)
 	double	wall_x;
 
 	if (ray->side == 0)
-		wall_x = cub->player->pos_y + (ray->wallDist * ray->dir_y);
+		wall_x = cub->player->pos_y + (ray->wall_dist * ray->dir_y);
 	else
 	{
-		wall_x = cub->player->pos_x + (ray->wallDist * ray->dir_x);
+		wall_x = cub->player->pos_x + (ray->wall_dist * ray->dir_x);
 	}
 	wall_x -= floor(wall_x);
 	return (wall_x);
@@ -96,11 +96,11 @@ void	draw_vertical_line(t_cub *cub, int raycount)
 
 	sd = cub->wall_direction;
 	cub->tex->tex_x = find_texture_x(cub, cub->tex->tex[sd], cub->ray);
-	step = ((double)cub->tex->tex[sd]->height) / cub->draw_wall->lineHeight;
-	texture_pos = (cub->draw_wall->drawStart - (S_HEIGHT / 2)
-			+ (cub->draw_wall->lineHeight / 2)) * step;
-	i = cub->draw_wall->drawStart;
-	while (i < cub->draw_wall->drawEnd)
+	step = ((double)cub->tex->tex[sd]->height) / cub->draw_wall->line_height;
+	texture_pos = (cub->draw_wall->draw_start - (S_HEIGHT / 2)
+			+ (cub->draw_wall->line_height / 2)) * step;
+	i = cub->draw_wall->draw_start;
+	while (i < cub->draw_wall->draw_end)
 	{
 		cub->tex->tex_y = (int)(texture_pos) & (cub->tex->tex[sd]->height - 1);
 		texture_pos += step;
