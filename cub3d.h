@@ -28,12 +28,12 @@
 # include <sys/time.h>
 # include <signal.h>
 
-# define S_WIDTH 1600
-# define S_HEIGHT 920
-# define PLANE 1.66
+# define S_WIDTH 1920
+# define S_HEIGHT 1080
+# define PLANE 0.8
 # define MOV 0.06
 # define ROT 0.06
-# define FOV 60.0 // Field of view in degrees
+# define FOV 0.66 // Field of view in degrees
 # define NUM_RAYS 360 // Number of rays to cast
 # define RAY_ANGLE FOV / NUM_RAYS // Angle between each ray
 
@@ -126,6 +126,9 @@ typedef struct s_game_structs
 	t_tex		*tex;
 	time_t		start_time;
 	pid_t		pid[2];
+	int			potential_side_x;
+	int			potential_side_y;
+	int			wall_direction;
 }	t_cub;
 
 void	exit_game_success(t_cub *cub);
