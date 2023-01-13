@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cboubour <cboubour@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 17:02:50 by gjupy             #+#    #+#             */
-/*   Updated: 2023/01/11 23:02:50 by cboubour         ###   ########.fr       */
+/*   Updated: 2023/01/13 15:35:12 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../include/cub3d.h"
 
 void	calc_ray(t_ray *ray, t_player *player, int raycount)
 {

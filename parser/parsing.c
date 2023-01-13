@@ -6,24 +6,24 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/12 22:26:19 by cboubour          #+#    #+#             */
-/*   Updated: 2023/01/12 21:31:24 by gjupy            ###   ########.fr       */
+/*   Updated: 2023/01/13 15:45:07 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../include/cub3d.h"
 
 static void	check_dublicate(t_map *map, t_cub *cub, char **param, char **split)
 {
 	if (!*param)
 		*param = split[1];
 	else
-		exit_map("Duplicate parameter in map file.");
+		exit_map("Duplicate parameter in map file");
 }
 
 static void	free_exit_map(char	**rgb)
 {
 	free_strings(&rgb);
-	exit_map("Wrong RGB values.");
+	exit_map("Wrong RGB values");
 }
 
 static void	init_fc(t_map *map, t_cub *cub, char **split, int *arr)
@@ -47,7 +47,7 @@ static void	init_fc(t_map *map, t_cub *cub, char **split, int *arr)
 	while (i < 3 && arr[i] >= 0 && arr[i] <= 255)
 		i++;
 	if (i != 3)
-		return (free_strings(&rgb), exit_map("Wrong RGB parameters."));
+		return (free_strings(&rgb), exit_map("Wrong RGB parameters"));
 	free_strings(&rgb);
 }
 
@@ -90,7 +90,7 @@ t_map	*initialize_map(t_cub *cub, char *map_name)
 	if (fd < 0 || ft_strcmp(map_name + ft_strlen(map_name) - 4, ".cub"))
 	{
 		close(fd);
-		exit_map("Error\nIncorrect map\n");
+		exit_map("Error\nIncorrect map");
 	}
 	map = init_map_struct();
 	line = get_next_line(fd);

@@ -6,11 +6,11 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 15:48:24 by gjupy             #+#    #+#             */
-/*   Updated: 2023/01/12 19:16:19 by gjupy            ###   ########.fr       */
+/*   Updated: 2023/01/13 15:36:01 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../include/cub3d.h"
 
 void	movement(t_cub *cub)
 {

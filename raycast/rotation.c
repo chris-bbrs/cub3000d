@@ -6,11 +6,11 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 22:01:49 by gjupy             #+#    #+#             */
-/*   Updated: 2023/01/11 22:14:34 by gjupy            ###   ########.fr       */
+/*   Updated: 2023/01/13 15:35:25 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../include/cub3d.h"
 
 /*
 both camera direction and camera plane are rotated

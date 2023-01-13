@@ -6,11 +6,11 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/10 16:04:06 by gjupy             #+#    #+#             */
-/*   Updated: 2023/01/12 19:30:22 by gjupy            ###   ########.fr       */
+/*   Updated: 2023/01/13 15:34:56 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../include/cub3d.h"
 
 // pid_t	get_pid(char *s)
 // {

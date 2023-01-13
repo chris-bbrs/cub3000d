@@ -6,11 +6,11 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/18 18:33:53 by cboubour          #+#    #+#             */
-/*   Updated: 2023/01/12 21:29:23 by gjupy            ###   ########.fr       */
+/*   Updated: 2023/01/13 15:44:26 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../include/cub3d.h"
 
 static void	ch_hor(t_map *map, t_cub *cub)
 {
@@ -71,22 +71,22 @@ static void	ch_tex(t_map *map, t_cub *cub)
 	if (fd < 0)
 		exit_map("NO path does not exist");
 	if (close(fd) < 0)
-		exit_map("Error in closing file\n");
+		exit_map("Error in closing file");
 	fd = open(map->so, O_RDONLY);
 	if (fd < 0)
 		exit_map("SO path does not exist");
 	if (close(fd) < 0)
-		exit_map("Error in closing file\n");
+		exit_map("Error in closing file");
 	fd = open(map->we, O_RDONLY);
 	if (fd < 0)
 		exit_map("WE path does not exist");
 	if (close(fd) < 0)
-		exit_map("Error in closing file\n");
+		exit_map("Error in closing file");
 	fd = open(map->ea, O_RDONLY);
 	if (fd < 0)
 		exit_map("EA path does not exist");
 	if (close(fd) < 0)
-		exit_map("Error in closing file\n");
+		exit_map("Error in closing file");
 }
 
 void	check_map(t_map *map, t_cub *cub)

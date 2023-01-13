@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   raycast_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cboubour <cboubour@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 22:41:41 by cboubour          #+#    #+#             */
-/*   Updated: 2023/01/11 23:20:06 by cboubour         ###   ########.fr       */
+/*   Updated: 2023/01/13 15:35:08 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../include/cub3d.h"
 
 void	dda(t_cub *cub)
 {

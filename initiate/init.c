@@ -6,11 +6,11 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 15:48:41 by cboubour          #+#    #+#             */
-/*   Updated: 2023/01/12 21:26:48 by gjupy            ###   ########.fr       */
+/*   Updated: 2023/01/13 15:35:50 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../include/cub3d.h"
 
 void	init_structs(t_cub *cub)
 {

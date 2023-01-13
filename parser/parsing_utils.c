@@ -6,11 +6,11 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 21:36:12 by cboubour          #+#    #+#             */
-/*   Updated: 2023/01/12 21:19:42 by gjupy            ###   ########.fr       */
+/*   Updated: 2023/01/13 15:44:46 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../include/cub3d.h"
 
 static void	get_dimensions(t_map *map, int fd)
 {
@@ -62,10 +62,10 @@ void	map_array(t_map *map, t_cub *cub, char *map_name, int fd)
 	if (!map->tiles)
 		exit(EXIT_FAILURE);
 	if (close(fd) < 0)
-		exit_map("Error in closing file\n");
+		exit_map("Error in closing file");
 	fd = open(map_name, O_RDONLY);
 	if (fd < 0)
-		exit_map("Error\nMap not found\n");
+		exit_map("Error\nMap not found");
 	line = get_next_line(fd);
 	while (line && ft_strcmp(line, map->first_map_row))
 	{
@@ -74,7 +74,7 @@ void	map_array(t_map *map, t_cub *cub, char *map_name, int fd)
 	}
 	create_arr(line, map, fd);
 	if (close(fd) < 0)
-		exit_map("Error in closing file\n");
+		exit_map("Error in closing file");
 }
 
 t_bool	check_params_exist(t_map *map)

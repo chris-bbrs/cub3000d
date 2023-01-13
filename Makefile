@@ -16,17 +16,11 @@ GNL = 	Get_next_line/gnl.a
 LIBFT = libft/libft.a
 
 SRC = 	main.c \
-		parsing.c \
-		exit_funcs.c \
-		check_map.c \
-		player.c \
-		key_hooks.c \
-		movement.c rotation.c \
-		init.c \
-		raycasting.c \
-		utils.c \
-		parsing_utils.c \
-		raycast_utils.c
+		hook/key_hooks.c \
+		raycast/movement.c raycast/rotation.c raycast/raycasting.c raycast/raycast_utils.c \
+		initiate/init.c initiate/player.c \
+		utils/utils.c utils/exit_funcs.c \
+		parser/parsing_utils.c parser/check_map.c parser/parsing.c \
 
 OBJ = 	$(SRC:.c=.o)
 
@@ -35,11 +29,12 @@ all: $(NAME)
 %.o: %.c
 	gcc -c $^ -o $@
 
-$(NAME): $(OBJ) $(GNL) $(LIBFT) cub3d.h
+$(NAME): $(OBJ) $(GNL) $(LIBFT) ./include/cub3d.h
 	gcc $(FLAGS) $(OBJ) $(GNL) $(LIBFT) MLX42/libmlx42.a MLX42/libglfw3.a -framework Cocoa -framework OpenGL -framework IOKit -o $(NAME)
 
 clean:
 	rm -f $(OBJ)
+	rm -f ps
 
 fclean:
 	make clean

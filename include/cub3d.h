@@ -13,9 +13,9 @@
 #ifndef CUB3D_H
 # define CUB3D_H
 
-# include "MLX42/include/MLX42/MLX42.h"
-# include "Get_next_line/get_next_line.h"
-# include "./libft/libft.h"
+# include "../MLX42/include/MLX42/MLX42.h"
+# include "../Get_next_line/get_next_line.h"
+# include "../libft/libft.h"
 # include <memory.h>
 # include <math.h>
 # include <stdio.h>

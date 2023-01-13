@@ -6,11 +6,11 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 22:58:50 by cboubour          #+#    #+#             */
-/*   Updated: 2023/01/13 15:23:26 by gjupy            ###   ########.fr       */
+/*   Updated: 2023/01/13 15:34:49 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../include/cub3d.h"
 
 void	free_strings(char ***s)
 {

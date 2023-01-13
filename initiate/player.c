@@ -6,11 +6,11 @@
 /*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 16:37:23 by gjupy             #+#    #+#             */
-/*   Updated: 2023/01/10 21:07:52 by gjupy            ###   ########.fr       */
+/*   Updated: 2023/01/13 15:35:53 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../include/cub3d.h"
 
 bool	is_player(char c)
 {
