@@ -11,7 +11,7 @@
 # **************************************************************************** #
 
 FLAGS = -Wall -Wextra -Werror
-NAME = 	cub3d
+NAME = 	cub3D
 GNL = 	Get_next_line/gnl.a
 LIBFT = libft/libft.a
 
