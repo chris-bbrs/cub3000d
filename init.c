@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cboubour <cboubour@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 15:48:41 by cboubour          #+#    #+#             */
-/*   Updated: 2023/01/11 23:19:53 by cboubour         ###   ########.fr       */
+/*   Updated: 2023/01/12 21:26:48 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,14 +64,12 @@ static void	init_images(t_cub *cub)
 	cub->tex->tex[3] = mlx_load_png(cub->map->so);
 	temp = mlx_load_png("./textures/player.png");
 	cub->img->player = mlx_texture_to_image(cub->mlx, temp);
-	free(temp);
+	mlx_delete_texture(temp);
 	create_floor_ceil(cub);
-	if (mlx_image_to_window(cub->mlx, cub->img->b_img, 0, 0) == -1)
-		rerror("put_background failed");
-	if (mlx_image_to_window(cub->mlx, cub->img->player,
-			(S_WIDTH - cub->img->player->width) / 2,
-			S_HEIGHT - cub->img->player->height) == -1)
-		rerror("put_horse failed");
+	mlx_image_to_window(cub->mlx, cub->img->b_img, 0, 0);
+	mlx_image_to_window(cub->mlx, cub->img->player,
+		(S_WIDTH - cub->img->player->width) / 2,
+		S_HEIGHT - cub->img->player->height);
 	mlx_set_setting(MLX_STRETCH_IMAGE, 1);
 }
 

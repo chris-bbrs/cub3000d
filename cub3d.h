@@ -74,10 +74,6 @@ typedef struct s_player{
 }	t_player;
 
 typedef struct s_images{
-	mlx_texture_t	*no;
-	mlx_texture_t	*so;
-	mlx_texture_t	*we;
-	mlx_texture_t	*ea;
 	mlx_image_t		*b_img;
 	mlx_image_t		*player;
 }	t_img;
@@ -158,19 +154,21 @@ void	set_player(t_cub *cub);
 void	raycast(t_cub *cub);
 void	draw_bg(t_cub *cub, int raycount);
 
-void	check_map(t_map *map);
-t_map	*initialize_map(char *map);
+void	check_map(t_map *map, t_cub *cub);
+t_map	*initialize_map(t_cub *cub, char *map_name);
 
-void	exit_map(t_map *to_free, char *str);
+void	exit_map(char *str);
 void	exit_game_success(t_cub *cub);
 int		rerror(char *str);
 
-void	map_array(t_map *map, char *map_name, int fd);
+void	map_array(t_map *map, t_cub *cub, char *map_name, int fd);
 t_bool	check_params_exist(t_map *map);
 t_map	*init_map_struct(void);
 
 void	dda(t_cub *cub);
 void	draw_bg(t_cub *cub, int raycount);
 void	draw_vertical_line(t_cub *cub, int raycount);
+
+void	free_strings(char ***s);
 
 #endif

@@ -45,10 +45,16 @@ int	mlx_get_pid(char *s)
 	{
 		if (buff && strnstr(buff, s, strlen(buff)) != NULL)
 		{
-			pid = atoi(ft_substr(buff, 0, 10));
+			char *sub_str = ft_substr(buff, 0, 10);
+			pid = atoi(sub_str);
+			free(sub_str);
+			free(buff);
 			break ;
 		}
 	}
+	if (pid == 0)
+		free(buff);
+	fclose(fn);
 	return (pid);
 }
 

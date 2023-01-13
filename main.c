@@ -18,7 +18,7 @@ int	main(int argc, char *argv[])
 
 	if (argc == 2)
 	{
-		cub.map = initialize_map(argv[1]);
+		cub.map = initialize_map(&cub, argv[1]);
 		cub.mlx = mlx_init(S_WIDTH, S_HEIGHT, "cub3000d", true);
 		if (!(cub.mlx))
 			exit(ENOMEM);

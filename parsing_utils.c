@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cboubour <cboubour@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: gjupy <gjupy@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 21:36:12 by cboubour          #+#    #+#             */
-/*   Updated: 2023/01/11 21:36:58 by cboubour         ###   ########.fr       */
+/*   Updated: 2023/01/12 21:19:42 by gjupy            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,10 @@ static void	get_dimensions(t_map *map, int fd)
 
 	map->height = 1;
 	line = get_next_line(fd);
-	map->width = ft_strlen(line);
+	if (line)
+		map->width = ft_strlen(line);
+	else
+		exit_map("Map not found");
 	while (line)
 	{
 		map->height++;
@@ -49,7 +52,7 @@ static void	create_arr(char *line, t_map *map, int fd)
 	map->tiles[i] = NULL;
 }
 
-void	map_array(t_map *map, char *map_name, int fd)
+void	map_array(t_map *map, t_cub *cub, char *map_name, int fd)
 {
 	int		i;
 	char	*line;
@@ -59,10 +62,10 @@ void	map_array(t_map *map, char *map_name, int fd)
 	if (!map->tiles)
 		exit(EXIT_FAILURE);
 	if (close(fd) < 0)
-		exit_map(map, "Error in closing file\n");
+		exit_map("Error in closing file\n");
 	fd = open(map_name, O_RDONLY);
 	if (fd < 0)
-		exit_map(map, "Error\nMap not found\n");
+		exit_map("Error\nMap not found\n");
 	line = get_next_line(fd);
 	while (line && ft_strcmp(line, map->first_map_row))
 	{
@@ -71,7 +74,7 @@ void	map_array(t_map *map, char *map_name, int fd)
 	}
 	create_arr(line, map, fd);
 	if (close(fd) < 0)
-		exit_map(map, "Error in closing file\n");
+		exit_map("Error in closing file\n");
 }
 
 t_bool	check_params_exist(t_map *map)
@@ -103,6 +106,7 @@ t_map	*init_map_struct(void)
 
 	i = 0;
 	map = ft_calloc(1, sizeof(t_map));
+	map->tiles = NULL;
 	while (i < 3)
 	{
 		map->f[i] = -1;
